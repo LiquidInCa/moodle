@@ -2927,6 +2927,11 @@ class assign {
             return true;
         }
         if ($data = $mform->get_data()) {
+            if (!$this->submissions_open()) {
+                $notices[] = get_string('duedatereached', 'assign');
+                return false;
+            }
+
             $submission = $this->get_user_submission($USER->id, true); //create the submission if needed & its id
             if ($this->get_instance()->submissiondrafts) {
                 $submission->status = ASSIGN_SUBMISSION_STATUS_DRAFT;
